@@ -38,7 +38,7 @@
 #ifdef __STACK_SIZE
 	.equ	Stack_Size, __STACK_SIZE
 #else
-	.equ	Stack_Size, 0x2000
+	.equ	Stack_Size, 0xc00
 #endif
 	.globl	__StackTop
 	.globl	__StackLimit
@@ -53,7 +53,7 @@ __StackTop:
 #ifdef __HEAP_SIZE
 	.equ	Heap_Size, __HEAP_SIZE
 #else
-	.equ	Heap_Size, 0x2000
+	.equ	Heap_Size, 0
 #endif
 	.globl	__HeapBase
 	.globl	__HeapLimit
@@ -103,11 +103,6 @@ Reset_Handler:
  *  one section.  The former scheme needs more instructions and read-only
  *  data to implement than the latter.
  *  Macro __STARTUP_COPY_MULTIPLE is used to choose between two schemes.  */
-    .global  main
-
-    LDR     R0, =main
-    BX      R0
-
 
 #ifdef __STARTUP_COPY_MULTIPLE
 /*  Multiple sections scheme.
@@ -120,8 +115,8 @@ Reset_Handler:
  *
  *  All addresses must be aligned to 4 bytes boundary.
  */
-@	ldr	r4, =__copy_table_start__
-@	ldr	r5, =__copy_table_end__
+	ldr	r4, =__copy_table_start__
+	ldr	r5, =__copy_table_end__
 
 .L_loop0:
 	cmp	r4, r5
@@ -181,8 +176,8 @@ Reset_Handler:
  *    offset 0: Start of a BSS section
  *    offset 4: Size of this BSS section. Must be multiply of 4
  */
-@	ldr	r3, =__zero_table_start__
-@	ldr	r4, =__zero_table_end__
+	ldr	r3, =__zero_table_start__
+	ldr	r4, =__zero_table_end__
 
 .L_loop2:
 	cmp	r3, r4
@@ -221,13 +216,13 @@ Reset_Handler:
 #endif /* __STARTUP_CLEAR_BSS_MULTIPLE || __STARTUP_CLEAR_BSS */
 
 #ifndef __NO_SYSTEM_INIT
-	@bl	SystemInit
+	bl	SystemInit
 #endif
 
 #ifndef __START
 #define __START _start
 #endif
-	@bl	__START
+	bl	__START
 
 	.pool
 	.size	Reset_Handler, . - Reset_Handler

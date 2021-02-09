@@ -3,3 +3,4 @@ WindowsApplications/WindowsApplications/IoT_TestApplication/bin/
 WindowsApplications/WindowsApplications/IoT_TestApplication/obj/
 WindowsApplications/WindowsApplications/.vs
 /TalRTOS/build/ek-tm4c123gxl/gnu/dbg/
+/TalRTOS/.vscode/

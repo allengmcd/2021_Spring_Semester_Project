@@ -61,8 +61,8 @@ VPATH = \
 
 # list of all include directories needed by this project
 INCLUDES  = \
-	-I../../../src/include \
-	-I../../../test/include \
+	-I../../../include \
+	-I../../../test/include 
 
 #-----------------------------------------------------------------------------
 # files
@@ -70,7 +70,8 @@ INCLUDES  = \
 
 # assembler source files
 ASM_SRCS := \
-	startup.s
+	startup.s \
+	os_KernelConfig.s
 
 # C source files
 C_SRCS := \
@@ -80,7 +81,7 @@ OUTPUT    := $(PROJECT)
 LD_SCRIPT := $(PROJECT).ld
 
 RTOS_SRCS := \
-	test.c
+	os_Kernel.c
 
 LIB_DIRS  :=
 LIBS      :=
@@ -104,7 +105,7 @@ ASM_FPU   := -defsym=__FPU_PRESENT=1
 # GNU-ARM toolset (NOTE: You need to adjust to your machine)
 # see https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
 #
-GNU_ARM := C:/Program Files (x86)/GNU Arm Embedded Toolchain/9 2020-q2-update/
+GNU_ARM := C:/"Program Files (x86)"/"GNU Arm Embedded Toolchain"/"9 2020-q2-update"/
 
 
 CC    := $(GNU_ARM)/bin/arm-none-eabi-gcc
