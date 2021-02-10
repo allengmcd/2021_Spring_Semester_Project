@@ -1,4 +1,5 @@
 #include "os_Kernel.h"
+#include "TM4C123GH6PM.h"
 
 #define SYSPRI3 (*((volatile uint32_t *)0xE000Ed20))
 
@@ -57,20 +58,20 @@ uint8_t os_KernelAddThreads(
 
 void os_KernelInit(void)
 {
-    //__disable_irq(); //TODO(allen): This needs to be implemented to disable interupts
+    __disable_irq(); //TODO(allen): This needs to be implemented to disable interupts
 
     MILLIS_PRESCALER = BUS_FREQ / 1000;
     
-    //__enable_irq(); //TODO(allen): This needs to be implemented to enable interupts
+    __enable_irq(); //TODO(allen): This needs to be implemented to enable interupts
 }
 
 
 void os_KernelLaunch(uint32_t quanta)
 {
-    //SysTick->CTRL = 0;
-    //SysTick->VAL = 0;
+    SysTick->CTRL = 0;
+    SysTick->VAL = 0;
     SYSPRI3 = (SYSPRI3&0x00FFFFFF) | 0xE0000000;
-    //SysTick->LOAD = (quanta*MILLIS_PRESCALER)-1;
-    //SysTick->CTRL=0x00000007;
+    SysTick->LOAD = (quanta*MILLIS_PRESCALER)-1;
+    SysTick->CTRL=0x00000007;
     os_SchedulerLaunch();
 }

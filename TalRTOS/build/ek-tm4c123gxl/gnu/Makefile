@@ -53,6 +53,8 @@
 #
 PROJECT     := TalRTOS
 
+CMSIS_PATH := E:\Git\CMSIS\CMSIS\include
+
 
 # list of all source directories used by this project
 VPATH = \
@@ -62,7 +64,8 @@ VPATH = \
 # list of all include directories needed by this project
 INCLUDES  = \
 	-I../../../include \
-	-I../../../test/include 
+	-I../../../test/include \
+	-I$(CMSIS_PATH)
 
 #-----------------------------------------------------------------------------
 # files
@@ -70,12 +73,13 @@ INCLUDES  = \
 
 # assembler source files
 ASM_SRCS := \
-	startup.s \
-	os_KernelConfig.s
+	os_KernelConfig.s \
+	startup_TM4C123.s
 
 # C source files
 C_SRCS := \
-	main.c 
+	main.c \
+	system_TM4C123.c
 
 OUTPUT    := $(PROJECT)
 LD_SCRIPT := $(PROJECT).ld
