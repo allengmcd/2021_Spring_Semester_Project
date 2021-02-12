@@ -54,18 +54,22 @@
 PROJECT     := TalRTOS
 
 CMSIS_PATH := E:\Git\CMSIS\CMSIS\include
-
+DriverLib_PATH := C:\ti\TivaWare_C_Series-2.1.4.178\driverlib
+Tiva_PATH := C:\ti\TivaWare_C_Series-2.1.4.178
 
 # list of all source directories used by this project
 VPATH = \
 	../../../src/ \
-	../../../test/ 
+	../../../test/ \
+	$(DriverLib_PATH)
 
 # list of all include directories needed by this project
 INCLUDES  = \
 	-I../../../include \
 	-I../../../test/include \
-	-I$(CMSIS_PATH)
+	-I$(CMSIS_PATH) \
+	-I$(DriverLib_PATH) \
+	-I$(Tiva_PATH)
 
 #-----------------------------------------------------------------------------
 # files
@@ -73,13 +77,14 @@ INCLUDES  = \
 
 # assembler source files
 ASM_SRCS := \
-	os_KernelConfig.s \
-	startup_TM4C123.s
+	os_KernelConfig.s 
 
 # C source files
 C_SRCS := \
 	main.c \
-	system_TM4C123.c
+	system_TM4C123.c \
+	uartTest.c \
+	startup_gcc.c
 
 OUTPUT    := $(PROJECT)
 LD_SCRIPT := $(PROJECT).ld
@@ -87,8 +92,43 @@ LD_SCRIPT := $(PROJECT).ld
 RTOS_SRCS := \
 	os_Kernel.c
 
-LIB_DIRS  :=
-LIBS      :=
+
+DRIVERLIB_SRCS := \
+	adc.c \
+	aes.c \
+	can.c \
+	comp.c \
+	cpu.c \
+	crc.c \
+	des.c \
+	eeprom.c \
+	emac.c \
+	epi.c \
+	flash.c \
+	fpu.c \
+	gpio.c \
+	hibernate.c \
+	i2c.c \
+	interrupt.c \
+	lcd.c \
+	mpu.c \
+	onewire.c \
+	pwm.c \
+	qei.c \
+	shamd5.c \
+	ssi.c \
+	sw_crc.c \
+	sysctl.c \
+	sysexc.c \
+	systick.c \
+	timer.c \
+	uart.c \
+	udma.c \
+	usb.c \
+	watchdog.c
+
+LIB_DIRS  := # E:\ProgramFiles\TI\TivaWare_C_Series-2.2.0.295\driverlib\gcc
+LIBS      := # E:\ProgramFiles\TI\TivaWare_C_Series-2.2.0.295\driverlib\gcc\libdriver.a
 
 # defines
 DEFINES   := -DTARGET_IS_TM4C123_RB1 -D__FPU_PRESENT
@@ -133,6 +173,7 @@ RM    := rm
 
 # combine all the soruces...
 C_SRCS += $(RTOS_SRCS)
+C_SRCS += $(DRIVERLIB_SRCS)
 
 ifeq (rel, $(CONF)) # Release configuration ..................................
 

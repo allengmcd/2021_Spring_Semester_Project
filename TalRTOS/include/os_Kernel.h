@@ -2,12 +2,16 @@
 #define _OS_KERNEL_H
 
 #include <stdint.h>
+#include "driverlib/systick.h"
+//#include "TM4C123GH6PM.h"
 
-void os_KernelLaunch(uint32_t quanta);
-void os_KernelInit(void);
-uint8_t os_KernelAddThreads(
-    void(*task0)(void), 
-    void(*task1)(void), 
-    void(*task3)(void));
+void osKernelLaunch(uint32_t quanta);
+
+void osKernelInit(void);
+
+uint8_t osKernelAddThreads(void(*task0)(void),
+													 void(*task1)(void),
+													 void(*task2)(void));
+
 
 #endif
