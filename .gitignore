@@ -4,3 +4,5 @@ WindowsApplications/WindowsApplications/IoT_TestApplication/obj/
 WindowsApplications/WindowsApplications/.vs
 /TalRTOS/build/ek-tm4c123gxl/gnu/dbg/
 /TalRTOS/.vscode/
+uCOS-II/build/dbg/
+uCOS-II/build/nucleo-f401re/dbg/
